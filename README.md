@@ -1,12 +1,13 @@
 # Campus Mobility and Ride Platform
 
-🌍 **Live Demo:** [https://campus-mobility-ln21.onrender.com](https://campus-mobility-ln21.onrender.com)
+ **Live Demo:** [https://campus-mobility-ln21.onrender.com](https://campus-mobility-ln21.onrender.com)
+    **Live Demo:** [(https://drive.google.com/drive/folders/1jsmq3T_QKOAqfVqB2q8PgKj42Ph6QwLo?usp=drive_link)
 
 A real-time campus ride management platform connecting passengers and e-rickshaw drivers. Built to solve the last-mile transportation problem across large university campuses, this platform coordinates ride requests, driver availability, and real-time location mapping.
 
 ---
 
-## 🎯 Features & Deliverables Fulfilled
+##  Features & Deliverables Fulfilled
 
 This project fully satisfies both the **Mandatory** and **Bonus** criteria outlined in the Real-Time Campus Mobility Platform specifications.
 
@@ -34,7 +35,7 @@ This project fully satisfies both the **Mandatory** and **Bonus** criteria outli
   * Passengers can rate drivers (1-5 stars) and submit written feedback after completion.
   * Platform calculates and tracks driver averages and performance summaries over time.
 
-### Bonus / Optional Features Achieved 🚀
+### Bonus / Optional Features Achieved 
 * **Live Map Integration:** Integrated `Leaflet` and OpenStreetMap to visually map pickup hotspots, destination clusters, and live driver locations.
 * **Ride Scheduling:** Added the ability for passengers to book rides for future time slots rather than requesting immediate dispatch.
 * **Digital Payments:** Simulated digital payment tracking (UPI/Cash/Wallet) with distinct `pending` and `paid` states and transaction references.
@@ -42,7 +43,7 @@ This project fully satisfies both the **Mandatory** and **Bonus** criteria outli
 
 ---
 
-## 🛠️ Technology Stack
+##  Technology Stack
 
 - **Frontend:** Next.js (App Router), React, TailwindCSS, Lucide Icons, react-hook-form + Zod
 - **Backend:** Next.js Serverless API routes + Custom Node.js Server for WebSockets
@@ -53,7 +54,7 @@ This project fully satisfies both the **Mandatory** and **Bonus** criteria outli
 
 ---
 
-## 🚀 Local Setup & Installation
+##  Local Setup & Installation
 
 **1. Clone the repository**
 ```bash
@@ -88,7 +89,7 @@ npm run dev:socket
 
 ---
 
-## 🧪 Demo Login Credentials
+##  Demo Login Credentials
 
 If you want to quickly test the application without registering:
 
@@ -102,7 +103,7 @@ If you want to quickly test the application without registering:
 
 ---
 
-## 📦 Deployment (Render)
+##  Deployment (Render)
 
 This application is configured to be deployed on platforms that support persistent Node.js servers (like **Render** or **Railway**) due to its WebSocket requirements. 
 
