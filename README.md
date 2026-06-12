@@ -40,10 +40,10 @@ A real-time campus ride management platform for passengers and e-rickshaw driver
 npm install
 ```
 
-3. Create `.env` from `.env.example`:
+3. Create `.env` from `env.example`:
 
 ```bash
-cp .env.example .env
+cp env.example .env
 ```
 
 4. Run the development server:
