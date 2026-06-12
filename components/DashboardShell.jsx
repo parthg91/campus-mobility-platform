@@ -1,15 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Icons } from "@/components/Icons";
 
 export default function DashboardShell({ user, children, title, action }) {
-  const router = useRouter();
-
   async function logout() {
     await fetch("/api/auth/logout", { method: "POST" });
-    router.push("/login");
+    window.location.assign("/login");
   }
 
   return (
@@ -20,10 +16,10 @@ export default function DashboardShell({ user, children, title, action }) {
           <span>Campus Mobility</span>
         </div>
         <nav className="sidebar-nav">
-          <Link href="/dashboard"><Icons.LayoutDashboard size={18} /> Overview</Link>
-          <Link href="/dashboard/rides"><Icons.CarFront size={18} /> Rides</Link>
-          <Link href="/dashboard/analytics"><Icons.BarChart3 size={18} /> Analytics</Link>
-          <Link href="/dashboard/profile"><Icons.UserRound size={18} /> Profile</Link>
+          <a href="/dashboard"><Icons.LayoutDashboard size={18} /> Overview</a>
+          <a href="/dashboard/rides"><Icons.CarFront size={18} /> Rides</a>
+          <a href="/dashboard/analytics"><Icons.BarChart3 size={18} /> Analytics</a>
+          <a href="/dashboard/profile"><Icons.UserRound size={18} /> Profile</a>
           <button onClick={logout}><Icons.LogOut size={18} /> Logout</button>
         </nav>
       </aside>

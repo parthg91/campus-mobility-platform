@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import useSWR from "swr";
 
 const fetcher = (url) => fetch(url).then((res) => {
@@ -9,9 +8,8 @@ const fetcher = (url) => fetch(url).then((res) => {
 });
 
 export function useSession() {
-  const router = useRouter();
   const session = useSWR("/api/auth/me", fetcher, {
-    onError: () => router.push("/login")
+    onError: () => window.location.assign("/login")
   });
 
   return session;

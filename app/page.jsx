@@ -1,17 +1,16 @@
-import Link from "next/link";
 import { Icons } from "@/components/Icons";
 
 export default function HomePage() {
   return (
     <div className="shell">
       <header className="topbar">
-        <Link className="brand" href="/">
+        <a className="brand" href="/">
           <span className="brand-mark"><Icons.Navigation size={20} /></span>
           <span>Campus Mobility</span>
-        </Link>
+        </a>
         <nav className="nav">
-          <Link className="btn" href="/login">Login</Link>
-          <Link className="btn primary" href="/register">Register</Link>
+          <a className="btn" href="/login">Login</a>
+          <a className="btn primary" href="/register">Register</a>
         </nav>
       </header>
       <section className="hero">
@@ -22,8 +21,8 @@ export default function HomePage() {
             live driver availability, request assignment, lifecycle tracking, ratings, and analytics.
           </p>
           <div className="action-row">
-            <Link className="btn primary" href="/register"><Icons.Plus size={18} /> Create account</Link>
-            <Link className="btn" href="/login"><Icons.ShieldCheck size={18} /> Open dashboard</Link>
+            <a className="btn primary" href="/register"><Icons.Plus size={18} /> Create account</a>
+            <a className="btn" href="/login"><Icons.ShieldCheck size={18} /> Open dashboard</a>
           </div>
         </div>
         <div className="hero-panel" aria-label="Campus ride map preview">

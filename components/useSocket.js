@@ -6,6 +6,7 @@ import { io } from "socket.io-client";
 export function useSocket(user, handlers = {}) {
   const socket = useMemo(() => {
     if (typeof window === "undefined") return null;
+    if (process.env.NEXT_PUBLIC_ENABLE_SOCKET !== "true") return null;
     return io();
   }, []);
 

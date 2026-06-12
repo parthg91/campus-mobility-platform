@@ -27,8 +27,8 @@ const CampusMap = dynamic(() => import("@/components/CampusMap"), { ssr: false }
 
 export default function AnalyticsPage() {
   const { data, isLoading } = useSession();
-  const analytics = useSWR(data ? "/api/analytics/demand" : null, fetcher);
-  const driversData = useSWR(data ? "/api/drivers/available" : null, fetcher);
+  const analytics = useSWR(data ? "/api/analytics/demand" : null, fetcher, { refreshInterval: 5000 });
+  const driversData = useSWR(data ? "/api/drivers/available" : null, fetcher, { refreshInterval: 5000 });
 
   const handlers = useMemo(() => ({
     "ride:updated": () => { analytics.mutate(); driversData.mutate(); },

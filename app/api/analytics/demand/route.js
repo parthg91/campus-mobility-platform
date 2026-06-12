@@ -1,6 +1,7 @@
 import { fail, ok } from "@/lib/api";
 import { getSessionUser } from "@/lib/auth";
 import { readStore } from "@/lib/localStore";
+import { DriverProfile, Rating, Ride, useMongoStore } from "@/lib/mongoStore";
 
 function movingAverageForecast(byHour) {
   const active = byHour.filter((item) => item.rides > 0);
@@ -21,6 +22,45 @@ function movingAverageForecast(byHour) {
 export async function GET() {
   const session = await getSessionUser();
   if (!session) return fail("Not authenticated", 401);
+
+  if (await useMongoStore()) {
+    const [rides, ratings, onlineDrivers] = await Promise.all([
+      Ride.find({}),
+      Rating.find({}),
+      DriverProfile.countDocuments({ availability: "online" })
+    ]);
+    const byHour = Array.from({ length: 24 }, (_, hour) => ({ hour, rides: 0 }));
+    const locations = {};
+
+    rides.forEach((ride) => {
+      const hour = new Date(ride.createdAt).getHours();
+      byHour[hour].rides += 1;
+      locations[ride.pickup] = (locations[ride.pickup] || 0) + 1;
+    });
+
+    const popularPickups = Object.entries(locations)
+      .map(([location, count]) => ({ location, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 6);
+
+    const activeRides = rides.filter((ride) => ["requested", "scheduled", "accepted", "in_progress"].includes(ride.status)).length;
+    const completedRides = rides.filter((ride) => ride.status === "completed").length;
+
+    return ok({
+      stats: {
+        totalRides: rides.length,
+        activeRides,
+        completedRides,
+        onlineDrivers,
+        averageRating: ratings.length
+          ? Number((ratings.reduce((sum, rating) => sum + rating.score, 0) / ratings.length).toFixed(2))
+          : 0
+      },
+      byHour,
+      popularPickups,
+      forecast: movingAverageForecast(byHour)
+    });
+  }
 
   const db = await readStore();
   const rides = db.rides;

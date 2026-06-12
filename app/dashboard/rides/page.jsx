@@ -12,8 +12,8 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function RidesPage() {
   const { data, isLoading } = useSession();
-  const rides = useSWR(data ? "/api/rides" : null, fetcher);
-  const drivers = useSWR(data?.user?.role === "passenger" ? "/api/drivers/available" : null, fetcher);
+  const rides = useSWR(data ? "/api/rides" : null, fetcher, { refreshInterval: 5000 });
+  const drivers = useSWR(data?.user?.role === "passenger" ? "/api/drivers/available" : null, fetcher, { refreshInterval: 5000 });
   const [toast, setToast] = useState("");
   const [form, setForm] = useState({ pickup: "Main Gate", destination: "Lecture Hall Complex", scheduledFor: "", paymentMethod: "upi" });
   const [rating, setRating] = useState({ rideId: "", score: 5, feedback: "" });

@@ -13,8 +13,8 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function DashboardPage() {
   const { data, isLoading, mutate } = useSession();
-  const rides = useSWR(data ? "/api/rides" : null, fetcher);
-  const analytics = useSWR(data ? "/api/analytics/demand" : null, fetcher);
+  const rides = useSWR(data ? "/api/rides" : null, fetcher, { refreshInterval: 5000 });
+  const analytics = useSWR(data ? "/api/analytics/demand" : null, fetcher, { refreshInterval: 5000 });
   const handlers = useMemo(() => ({
     "ride:updated": () => { rides.mutate(); analytics.mutate(); },
     "ride:requested": () => { rides.mutate(); analytics.mutate(); },

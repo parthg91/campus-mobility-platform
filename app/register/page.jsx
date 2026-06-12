@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Icons } from "@/components/Icons";
 
@@ -20,7 +18,6 @@ const initial = {
 };
 
 export default function RegisterPage() {
-  const router = useRouter();
   const [form, setForm] = useState(initial);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -38,7 +35,7 @@ export default function RegisterPage() {
     const data = await res.json();
     setLoading(false);
     if (!res.ok) return setError(data.error || "Registration failed");
-    router.push("/dashboard");
+    window.location.assign("/dashboard");
   }
 
   return (
@@ -71,7 +68,7 @@ export default function RegisterPage() {
             ) : null}
             {error ? <div className="badge red">{error}</div> : null}
             <button className="btn primary" disabled={loading}>{loading ? "Creating..." : "Create account"}</button>
-            <Link className="muted" href="/login">Already registered? Login</Link>
+            <a className="muted" href="/login">Already registered? Login</a>
           </form>
         </main>
       </div>

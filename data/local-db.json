@@ -1,0 +1,70 @@
+{
+  "users": [
+    {
+      "id": "usr_1781278935219_9pjos9",
+      "name": "Aarav Passenger",
+      "email": "passenger@campus.test",
+      "passwordHash": "$2a$10$.xWZy2DZ0k00zrcs2IGN9ONR8AVIqS3Vec73FC.O90uz6.K.PBIGe",
+      "role": "passenger",
+      "phone": "9999999991",
+      "department": "Architecture",
+      "year": "2nd Year",
+      "createdAt": "2026-06-12T15:42:16.782Z"
+    },
+    {
+      "id": "usr_1781278936782_1k5lhx",
+      "name": "Ramesh Driver",
+      "email": "driver@campus.test",
+      "passwordHash": "$2a$10$JZ.ewqd3iRaBYAeho0jRlODf2NKr.ZfCmF4tybXDE7A2b8Edyc4AG",
+      "role": "driver",
+      "phone": "9999999992",
+      "department": "",
+      "year": "",
+      "createdAt": "2026-06-12T15:42:17.262Z"
+    }
+  ],
+  "driverProfiles": [
+    {
+      "id": "drv_1781278937262_jamz4l",
+      "userId": "usr_1781278936782_1k5lhx",
+      "vehicleNumber": "UK08 ER 2046",
+      "vehicleType": "E-Rickshaw",
+      "licenseNumber": "DL-IITR-0246",
+      "verificationStatus": "verified",
+      "availability": "online",
+      "currentLocation": "Main Building",
+      "latitude": 29.8649,
+      "longitude": 77.8958,
+      "totalRides": 0,
+      "averageRating": 0,
+      "createdAt": "2026-06-12T15:42:17.262Z"
+    }
+  ],
+  "rides": [
+    {
+      "id": "ride_1781279730814_6j1yg1",
+      "passengerId": "usr_1781278935219_9pjos9",
+      "driverId": null,
+      "pickup": "Main Gate",
+      "destination": "Lecture Hall Complex",
+      "status": "requested",
+      "fare": 34,
+      "scheduledFor": "2026-06-12T21:25",
+      "paymentMethod": "cash",
+      "createdAt": "2026-06-12T15:55:30.814Z",
+      "updatedAt": "2026-06-12T15:55:30.814Z"
+    }
+  ],
+  "ratings": [],
+  "payments": [
+    {
+      "id": "pay_1781279730814_iiamap",
+      "rideId": "ride_1781279730814_6j1yg1",
+      "amount": 34,
+      "method": "cash",
+      "status": "pending",
+      "transactionRef": "",
+      "createdAt": "2026-06-12T15:55:30.814Z"
+    }
+  ]
+}

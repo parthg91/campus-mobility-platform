@@ -1,12 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Icons } from "@/components/Icons";
 
 export default function LoginPage() {
-  const router = useRouter();
   const [form, setForm] = useState({ email: "passenger@campus.test", password: "password123" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,7 +20,7 @@ export default function LoginPage() {
     const data = await res.json();
     setLoading(false);
     if (!res.ok) return setError(data.error || "Login failed");
-    router.push("/dashboard");
+    window.location.assign("/dashboard");
   }
 
   return (
@@ -41,7 +38,8 @@ export default function LoginPage() {
             <label className="field"><span>Password</span><input type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} /></label>
             {error ? <div className="badge red">{error}</div> : null}
             <button className="btn primary" disabled={loading}>{loading ? "Signing in..." : "Login"}</button>
-            <Link className="muted" href="/register">Need an account? Register</Link>
+            <a className="btn" href="/">Back to home</a>
+            <a className="muted" href="/register">Need an account? Register</a>
           </form>
         </main>
       </div>

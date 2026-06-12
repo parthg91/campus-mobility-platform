@@ -2,6 +2,7 @@ import { fail, ok } from "@/lib/api";
 import { getSessionUser } from "@/lib/auth";
 import { emitRealtime } from "@/lib/realtime";
 import { readStore, writeStore } from "@/lib/localStore";
+import { DriverProfile, serializeDriver, useMongoStore } from "@/lib/mongoStore";
 
 export async function PATCH(request) {
   const session = await getSessionUser();
@@ -9,6 +10,21 @@ export async function PATCH(request) {
 
   const { availability, currentLocation, latitude, longitude } = await request.json();
   if (!["online", "offline", "busy"].includes(availability)) return fail("Invalid availability", 422);
+
+  if (await useMongoStore()) {
+    const driver = await DriverProfile.findOne({ user: session.id });
+    if (!driver) return fail("Driver profile not found", 404);
+
+    driver.availability = availability;
+    if (currentLocation) driver.currentLocation = currentLocation;
+    if (Number.isFinite(latitude)) driver.latitude = latitude;
+    if (Number.isFinite(longitude)) driver.longitude = longitude;
+    await driver.save();
+
+    const serialized = serializeDriver(driver);
+    emitRealtime("driver:availability", { driver: serialized }, ["passengers", "drivers"]);
+    return ok({ driver: serialized });
+  }
 
   const db = await readStore();
   const driver = db.driverProfiles.find((item) => item.userId === session.id);

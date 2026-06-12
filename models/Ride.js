@@ -8,7 +8,7 @@ const RideSchema = new mongoose.Schema(
     destination: { type: String, required: true },
     status: {
       type: String,
-      enum: ["requested", "accepted", "in_progress", "completed", "cancelled", "rejected"],
+      enum: ["requested", "scheduled", "accepted", "in_progress", "completed", "cancelled", "rejected"],
       default: "requested"
     },
     fare: { type: Number, default: 20 },
