@@ -32,27 +32,37 @@ A real-time campus ride management platform for passengers and e-rickshaw driver
 
 ## Setup
 
-1. Install dependencies:
+1.Open the project folder in VS Code. Then open terminal in VS Code.
+  Install Node.js if not already installed: https://nodejs.org
+2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-2. Create `.env` from `.env.example`:
+3. Create `.env` from `.env.example`:
 
 ```bash
 cp .env.example .env
 ```
-
-3. Start MongoDB locally or provide a hosted `MONGODB_URI`.
 
 4. Run the development server:
 
 ```bash
 npm run dev
 ```
+or on Windows if PowerShell blocks npm:
 
+```bash
+npm.cmd run dev
+```
 5. Open `http://localhost:3000`.
+
+6. It does not need MongoDB immediately, because I added a local JSON fallback database for demo/testing. MongoDB can be added later by setting MONGODB_URI in .env.
+
+7. Demo login:
+Passenger: passenger@campus.test / password123
+Driver: driver@campus.test / password123
 
 ## Demo Flow
 
