@@ -2,10 +2,14 @@
 
 A real-time campus ride management platform for passengers and e-rickshaw drivers. The app is built as a full-stack Next.js dashboard with authentication, driver onboarding, ride requests, ride assignment, live status updates, ratings, analytics, and optional campus map/scheduling/payment simulation surfaces.
 
+## Live Demo
+
+🌐 https://campus-mobility-ln21.onrender.com
+
 ## Technology Stack
 
 - Next.js App Router and React
-- MongoDB with Mongoose models
+- MongoDB database with Mongoose ODM for data modeling and management
 - Socket.IO for real-time ride and driver availability updates
 - JWT authentication with HTTP-only cookies
 - Zod validation
@@ -60,7 +64,7 @@ npm.cmd run dev
 ```
 5. Open `http://localhost:3000`.
 
-6. It does not need MongoDB immediately, because I added a local JSON fallback database for demo/testing. MongoDB can be added later by setting MONGODB_URI in .env.
+6. The application uses MongoDB as its primary database. Configure the `MONGODB_URI` in the `.env` file to connect to your MongoDB instance. A local JSON fallback database is also included for demo/testing purposes when MongoDB is not configured.
 
 7. Demo login:
 Passenger: passenger@campus.test / password123
@@ -75,6 +79,19 @@ Driver: driver@campus.test / password123
 5. Accept the ride from the driver dashboard.
 6. Move the ride through in progress and completed states.
 7. Submit passenger rating and feedback.
+
+## Database
+
+The platform uses MongoDB with Mongoose for storing and managing:
+
+- User accounts and authentication data
+- Driver profiles and vehicle information
+- Ride requests and ride history
+- Ratings and feedback
+- Payment records
+- Analytics and demand forecasting data
+
+A local JSON fallback database is available for demonstration and testing when MongoDB is not configured.
 
 ## Project Structure
 
