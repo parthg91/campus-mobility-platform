@@ -34,6 +34,8 @@ A real-time campus ride management platform for passengers and e-rickshaw driver
 
 1.Open the project folder in VS Code. Then open terminal in VS Code.
   Install Node.js if not already installed: https://nodejs.org
+
+  
 2. Install dependencies:
 
 ```bash
