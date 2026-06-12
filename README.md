@@ -1,103 +1,112 @@
 # Campus Mobility and Ride Platform
 
-A real-time campus ride management platform for passengers and e-rickshaw drivers. The app is built as a full-stack Next.js dashboard with authentication, driver onboarding, ride requests, ride assignment, live status updates, ratings, analytics, and optional campus map/scheduling/payment simulation surfaces.
+🌍 **Live Demo:** [https://campus-mobility-ln21.onrender.com](https://campus-mobility-ln21.onrender.com)
 
-## Live Demo
+A real-time campus ride management platform connecting passengers and e-rickshaw drivers. Built to solve the last-mile transportation problem across large university campuses, this platform coordinates ride requests, driver availability, and real-time location mapping.
 
-🌐 https://campus-mobility-ln21.onrender.com
+---
 
-## Technology Stack
+## 🎯 Features & Deliverables Fulfilled
 
-- Next.js App Router and React
-- MongoDB database with Mongoose ODM for data modeling and management
-- Socket.IO for real-time ride and driver availability updates
-- JWT authentication with HTTP-only cookies
-- Zod validation
-- SWR for client data fetching
-- Chart.js for dashboard analytics
-- Leaflet/OpenStreetMap campus map
+This project fully satisfies both the **Mandatory** and **Bonus** criteria outlined in the Real-Time Campus Mobility Platform specifications.
 
-## Features
+### Mandatory Features
+* **User Authentication & Profile Management**
+  * Secure JWT-based authentication with HTTP-only cookies.
+  * Distinct workflows for Passenger and Driver accounts.
+  * Comprehensive profile management, including driver vehicle verification (License number, vehicle type).
+* **Driver Availability Management**
+  * Drivers can dynamically toggle availability states: `Online`, `Offline`, or `Busy`.
+  * Passengers can view all currently online and verified drivers before requesting a ride.
+* **Ride Request Workflow**
+  * Passengers specify pickup and destination points.
+  * Drivers view an incoming queue of requests and can accept or reject them.
+  * **Race-Condition Protection:** The system strictly ensures a single ride cannot be assigned to multiple drivers simultaneously.
+* **Real-Time Updates (WebSockets)**
+  * Powered by **Socket.IO** to deliver instant state synchronization without page refreshes.
+  * Live notifications for ride assignments, driver availability shifts, and real-time status updates.
+* **Ride Lifecycle Management**
+  * Consistent state tracking across: `Requested` → `Accepted` → `In Progress` → `Completed` → `Cancelled`.
+* **Driver Dashboard & Analytics**
+  * A comprehensive driver portal displaying total completed rides, active queues, historical logs, and average ratings.
+  * Visualized via interactive summary cards and `Chart.js` graphs.
+* **Ratings & Feedback**
+  * Passengers can rate drivers (1-5 stars) and submit written feedback after completion.
+  * Platform calculates and tracks driver averages and performance summaries over time.
 
-- Passenger and driver registration/login
-- Profile management for both roles
-- Driver vehicle and verification information
-- Driver online/offline availability
-- Passenger ride request with pickup and destination
-- Driver ride queue with accept/reject workflow
-- Single-driver ride assignment protection
-- Ride lifecycle: requested, accepted, in progress, completed, cancelled
-- Live status, assignment, and availability notifications over Socket.IO
-- Driver dashboard with completed rides, active rides, ratings, charts, and history
-- Passenger ratings and written feedback
-- Ride scheduling, simulated UPI/QR payments, and demand analytics views
-- Demand forecasting summary based on collected ride history
-- Live map view with pickup, destination, and driver hotspot markers
+### Bonus / Optional Features Achieved 🚀
+* **Live Map Integration:** Integrated `Leaflet` and OpenStreetMap to visually map pickup hotspots, destination clusters, and live driver locations.
+* **Ride Scheduling:** Added the ability for passengers to book rides for future time slots rather than requesting immediate dispatch.
+* **Digital Payments:** Simulated digital payment tracking (UPI/Cash/Wallet) with distinct `pending` and `paid` states and transaction references.
+* **Demand Analytics & Forecasting:** Dedicated dashboard screens for analyzing peak campus demand hours and ride hotspots.
 
-## Setup
+---
 
-1.Open the project folder in VS Code. Then open terminal in VS Code.
-  Install Node.js if not already installed: https://nodejs.org
+## 🛠️ Technology Stack
 
-  
-2. Install dependencies:
+- **Frontend:** Next.js (App Router), React, TailwindCSS, Lucide Icons, react-hook-form + Zod
+- **Backend:** Next.js Serverless API routes + Custom Node.js Server for WebSockets
+- **Database:** MongoDB (via Mongoose)
+- **Real-Time:** Socket.IO
+- **Data Fetching:** SWR
+- **Visualizations:** Chart.js, react-leaflet
 
+---
+
+## 🚀 Local Setup & Installation
+
+**1. Clone the repository**
+```bash
+git clone https://github.com/parthg91/campus-mobility-platform.git
+cd campus-mobility-platform
+```
+
+**2. Install dependencies**
 ```bash
 npm install
 ```
 
-3. Create `.env` from `env.example`:
-
+**3. Configure Environment Variables**
+Copy the example environment file:
 ```bash
-cp env.example .env
+cp env.example .env.local
+```
+Inside `.env.local`, configure your MongoDB connection:
+```env
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/campus_mobility
+JWT_SECRET=your_secure_random_string
+NEXT_PUBLIC_ENABLE_SOCKET=true
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
-4. Run the development server:
-
+**4. Run the development server**
+Because this app relies on real-time WebSockets, start the application using the custom socket script:
 ```bash
-npm run dev
+npm run dev:socket
 ```
-or on Windows if PowerShell blocks npm:
+*(Open [http://localhost:3000](http://localhost:3000) in your browser).*
 
-```bash
-npm.cmd run dev
-```
-5. Open `http://localhost:3000`.
+---
 
-6. The application uses MongoDB as its primary database. Configure the `MONGODB_URI` in the `.env` file to connect to your MongoDB instance. A local JSON fallback database is also included for demo/testing purposes when MongoDB is not configured.
+## 🧪 Demo Login Credentials
 
-7. Demo login:
-Passenger: passenger@campus.test / password123
-Driver: driver@campus.test / password123
+If you want to quickly test the application without registering:
 
-## Demo Flow
+**Passenger Account:**
+* Email: `passenger@campus.test`
+* Password: `password123`
 
-1. Register a passenger.
-2. Register a driver with vehicle and verification details.
-3. Log in as the driver and go online.
-4. Log in as the passenger, view available drivers, and request a ride.
-5. Accept the ride from the driver dashboard.
-6. Move the ride through in progress and completed states.
-7. Submit passenger rating and feedback.
+**Driver Account:**
+* Email: `driver@campus.test`
+* Password: `password123`
 
-## Database
+---
 
-The platform uses MongoDB with Mongoose for storing and managing:
+## 📦 Deployment (Render)
 
-- User accounts and authentication data
-- Driver profiles and vehicle information
-- Ride requests and ride history
-- Ratings and feedback
-- Payment records
-- Analytics and demand forecasting data
+This application is configured to be deployed on platforms that support persistent Node.js servers (like **Render** or **Railway**) due to its WebSocket requirements. 
 
-A local JSON fallback database is available for demonstration and testing when MongoDB is not configured.
+**Build Command:** `npm install && npm run build`
+**Start Command:** `npm run start:socket`
 
-## Project Structure
-
-- `app`: pages, layouts, dashboard screens, API routes
-- `components`: reusable UI, forms, charts, ride cards, map widgets
-- `lib`: auth, database connection, validators, realtime helpers
-- `models`: Mongoose schemas for users, drivers, rides, ratings, payments
-- `data`: local fallback database used when MongoDB is not configured
-- `docs`: architecture and submission design notes
+*Ensure all environment variables from `.env.local` are transferred to your hosting provider's configuration dashboard.*
