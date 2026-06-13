@@ -35,6 +35,9 @@ export default function RidesPage() {
   if (isLoading || !data) return <div className="page">Loading rides...</div>;
   const user = data.user;
 
+  const requestedRides = rides.data?.rides?.filter(r => r.status === "requested") || [];
+  const myRides = rides.data?.rides?.filter(r => r.status !== "requested") || [];
+
   async function createRide(event) {
     event.preventDefault();
     const res = await fetch("/api/rides", {
@@ -101,9 +104,26 @@ export default function RidesPage() {
         ) : (
           <div className="card">
             <div className="card-body">
-              <h2>Driver queue</h2>
-              <p className="muted">Requested rides appear here instantly. The server prevents double assignment.</p>
-              <StatusBadge status={data.driverProfile?.availability || "offline"} />
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+                <h2>Driver queue</h2>
+                <StatusBadge status={data.driverProfile?.availability || "offline"} />
+              </div>
+              
+              {requestedRides.length > 0 ? (
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                  {requestedRides.map((ride) => (
+                    <div key={ride.id} style={{ padding: "12px", border: "1px solid var(--line)", borderRadius: "8px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <div>
+                        <strong>{ride.pickup} ➔ {ride.destination}</strong>
+                        <div className="muted" style={{ fontSize: "13px" }}>Passenger: {ride.passenger?.name || "Unknown"} · Rs {ride.fare} ({ride.paymentMethod})</div>
+                      </div>
+                      <button className="btn primary" onClick={() => action(ride.id, "accept")}>Accept Ride</button>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="muted">No new ride requests right now. When a passenger requests a ride, it will appear here instantly.</p>
+              )}
             </div>
           </div>
         )}
@@ -127,7 +147,7 @@ export default function RidesPage() {
                 <tr><th>Route</th><th>Passenger</th><th>Driver</th><th>Status</th><th>Payment</th><th>Actions</th></tr>
               </thead>
               <tbody>
-                {rides.data?.rides?.map((ride) => (
+                {(user.role === "driver" ? myRides : rides.data?.rides || []).map((ride) => (
                   <tr key={ride.id}>
                     <td><strong>{ride.pickup}</strong><br /><span className="muted">to {ride.destination}</span></td>
                     <td>{ride.passenger?.name || "-"}</td>
@@ -136,7 +156,6 @@ export default function RidesPage() {
                     <td>{ride.paymentMethod} · Rs {ride.fare}<br /><span className="muted">{ride.payment?.status}</span></td>
                     <td>
                       <div className="action-row">
-                        {user.role === "driver" && ride.status === "requested" ? <button className="btn primary" onClick={() => action(ride.id, "accept")}>Accept</button> : null}
                         {user.role === "driver" && ride.status === "accepted" ? <button className="btn warning" onClick={() => action(ride.id, "start")}>Start</button> : null}
                         {user.role === "driver" && ride.status === "in_progress" ? <button className="btn primary" onClick={() => action(ride.id, "complete")}>Complete</button> : null}
                         {["requested", "accepted"].includes(ride.status) ? <button className="btn danger" onClick={() => action(ride.id, "cancel")}>Cancel</button> : null}
