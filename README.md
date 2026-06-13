@@ -4,7 +4,7 @@
     **Live Demo:** [(https://drive.google.com/drive/folders/1jsmq3T_QKOAqfVqB2q8PgKj42Ph6QwLo?usp=drive_link)
 
 A real-time campus ride management platform connecting passengers and e-rickshaw drivers. Built to solve the last-mile transportation problem across large university campuses, this platform coordinates ride requests, driver availability, and real-time location mapping.
-
+## For Requesting rides right now leave date and time in schedule for section blank.
 ---
 
 ##  Features & Deliverables Fulfilled
